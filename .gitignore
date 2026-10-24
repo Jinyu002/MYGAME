@@ -1,0 +1,11 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Reference data is never part of the distributable project.
+/study/
+/research_sandbox/
+/artifacts/
+/builds/
+/icon.svg.import
+*.log
