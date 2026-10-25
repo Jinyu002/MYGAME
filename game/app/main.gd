@@ -60,6 +60,7 @@ var total_elapsed: float = 0
 var decision_token: int = 0
 var benchmark: bool = false
 var action_capture: bool = false
+var feedback_tweens: Array[Tween] = []
 
 func _ready() -> void:
 	font = SystemFont.new()
@@ -94,7 +95,9 @@ func _ready() -> void:
 	director.finished.connect(_presentation_done)
 	director.focus_changed.connect(func(amount: float):
 		for child in hud.get_children():
-			if child is Control and child.position.y >= 1400: child.modulate.a = 1.0 - amount)
+			if child is Control and child.has_meta("focus_fade"):
+				child.modulate.a = 1.0 - amount * float(child.get_meta("focus_fade"))
+		if is_instance_valid(hint): hint.position.y = lerpf(245, 1900, amount))
 	sound = Sound.new()
 	add_child(sound)
 	build_hud()
@@ -178,35 +181,38 @@ func build_hud() -> void:
 	button(hud, "全屏", Rect2(3550, 48, 200, 86), toggle_fullscreen)
 	hint = label(hud, "", Rect2(700, 245, 2440, 90), 48, GOLD)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	panel(hud, Rect2(0, 1580, 3840, 580), Color("0d141bf5"))
-	panel(hud, Rect2(72, 1630, 840, 424), Color("182129"))
+	panel(hud, Rect2(0, 1770, 3840, 390), Color("0d141bf5"))
+	panel(hud, Rect2(72, 1795, 840, 295), Color("182129"))
 	portrait = TextureRect.new()
-	portrait.position = Vector2(102, 1685)
-	portrait.size = Vector2(230, 260)
+	portrait.position = Vector2(100, 1820)
+	portrait.size = Vector2(180, 230)
 	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	hud.add_child(portrait)
-	hero_title = label(hud, "选择你的行动", Rect2(365, 1658, 510, 80), 54, GOLD)
-	hero_detail = label(hud, "", Rect2(365, 1760, 510, 250), 33, MUTED)
-	label(hud, "行动  /  ACTIONS", Rect2(970, 1620, 1490, 60), 30, GOLD)
+	hero_title = label(hud, "选择你的行动", Rect2(310, 1805, 570, 65), 46, GOLD)
+	hero_detail = label(hud, "", Rect2(310, 1880, 570, 205), 32, MUTED)
+	label(hud, "行动  /  ACTIONS", Rect2(970, 1790, 1490, 45), 30, GOLD)
 	skill_box = HBoxContainer.new()
-	skill_box.position = Vector2(970, 1700)
-	skill_box.size = Vector2(1520, 200)
+	skill_box.position = Vector2(970, 1840)
+	skill_box.size = Vector2(1520, 140)
 	skill_box.add_theme_constant_override("separation", 22)
 	hud.add_child(skill_box)
-	button(hud, "前移  [Q]", Rect2(970, 1940, 300, 90), func(): select_skill("forward"))
-	button(hud, "后撤  [E]", Rect2(1290, 1940, 300, 90), func(): select_skill("back"))
-	button(hud, "坚守  [G]", Rect2(1610, 1940, 300, 90), func(): select_skill("defend"))
-	button(hud, "取消选择", Rect2(1930, 1940, 300, 90), cancel_selection)
-	panel(hud, Rect2(2560, 1630, 1200, 424), Color("182129"))
-	preview_title = label(hud, "选择技能 → 选择目标", Rect2(2600, 1660, 1120, 62), 44, GOLD)
-	preview_text = label(hud, "", Rect2(2600, 1740, 1100, 175), 32)
+	button(hud, "前移  [Q]", Rect2(970, 2000, 300, 80), func(): select_skill("forward"))
+	button(hud, "后撤  [E]", Rect2(1290, 2000, 300, 80), func(): select_skill("back"))
+	button(hud, "坚守  [G]", Rect2(1610, 2000, 300, 80), func(): select_skill("defend"))
+	button(hud, "取消选择", Rect2(1930, 2000, 300, 80), cancel_selection)
+	panel(hud, Rect2(2560, 1795, 1200, 295), Color("182129"))
+	preview_title = label(hud, "选择技能 → 选择目标", Rect2(2600, 1805, 1120, 55), 40, GOLD)
+	preview_text = label(hud, "", Rect2(2600, 1870, 1100, 120), 32)
 	preview_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	confirm = button(hud, "确认行动  [SPACE]", Rect2(2600, 1930, 1120, 90), submit_selected)
-	log_label = label(hud, "", Rect2(95, 2080, 3640, 60), 30, MUTED)
+	confirm = button(hud, "确认行动  [SPACE]", Rect2(2600, 2000, 1120, 80), submit_selected)
+	log_label = label(hud, "", Rect2(95, 2100, 3640, 55), 30, MUTED)
+	for child in hud.get_children():
+		if child != hint:
+			child.set_meta("focus_fade", 0.85 if child.position.y < 190 else 1.0)
 
 func home_position(side: int, rank_value: int) -> Vector2:
-	return Vector2(1550 - (rank_value - 1) * 370 if side == 0 else 2290 + (rank_value - 1) * 370, 1390)
+	return Vector2(1550 - (rank_value - 1) * 370 if side == 0 else 2290 + (rank_value - 1) * 370, 1580)
 
 func clear_modal() -> void:
 	for child in modal.get_children():
@@ -232,14 +238,16 @@ func make_modal(title: String, subtitle: String) -> Panel:
 func show_title() -> void:
 	running = false
 	locked = true
-	var p := make_modal("余烬之下，守住阵线。", "四名远征者，一场墓穴遭遇。\n前后阵位决定技能与目标；合理换位、控制和治疗。\n\n选技能 → 点角色 → 确认行动。\n快捷键：1–3 技能 · Q/E 换位 · G 坚守 · 空格确认")
+	var p := make_modal("余烬之下，守住阵线。", "四名远征者，一场墓穴遭遇。\n前后阵位决定技能与目标；合理换位、控制和治疗。\n\n选技能 → 点角色 → 确认行动。\n快捷键：1–4 技能 · Q/E 换位 · G 坚守 · 空格确认")
 	button(p, "进入战斗试炼", Rect2(110, 970, 1820, 130), start_battle)
-	label(p, "本地测试版  0.2   /   参考美术临时使用 · 最终替换为原创", Rect2(110, 1170, 1820, 70), 30, GOLD)
+	label(p, "本地测试版  0.4   /   参考美术临时使用 · 最终替换为原创", Rect2(110, 1170, 1820, 70), 30, GOLD)
 
 func start_battle() -> void:
 	generation += 1
 	decision_token += 1
+	clear_feedback()
 	director.cleanup()
+	director.set_process(true)
 	for child in popup_layer.get_children():
 		popup_layer.remove_child(child)
 		child.queue_free()
@@ -262,12 +270,14 @@ func start_battle() -> void:
 		var u: Dictionary = rules.units[id]
 		var v = ActorView.new()
 		v.setup(art, u.visual, int(u.side))
+		v.presentation_speed = director.speed
 		v.position = home_position(int(u.side), rules.rank_of(id))
 		world.add_child(v)
 		views[id] = v
-		var card := panel(hud, Rect2(v.position.x - 165, 1430, 330, 130), Color("101820"))
+		var card := panel(hud, Rect2(v.position.x - 165, 1620, 330, 130), Color("101820"))
+		card.set_meta("focus_fade", 1.0)
 		cards[id] = card
-		var click := button(hud, "", Rect2(v.position.x - 170, 610, 340, 810), func(): choose_target(id))
+		var click := button(hud, "", Rect2(v.position.x - 170, 720, 340, 890), func(): choose_target(id))
 		for state in ["normal", "hover", "pressed", "focus", "disabled"]: click.add_theme_stylebox_override(state, StyleBoxEmpty.new())
 		click.focus_mode = Control.FOCUS_NONE
 		click.mouse_entered.connect(func(): hovered = id; refresh_preview())
@@ -344,14 +354,14 @@ func _impact(record: Dictionary) -> void:
 			"death":
 				text = "倒下"
 				color = Color("bb665a")
-				if views.has(e.target): views[e.target].create_tween().tween_property(views[e.target], "modulate:a", 0.0, 0.35)
+				if views.has(e.target): feedback_tween(views[e.target]).tween_property(views[e.target], "modulate:a", 0.0, 0.35)
 			"move": text = "换位"; color = MUTED
 			"round":
 				logs.append("第 %d 轮开始" % e.amount)
 		if not text.is_empty() and views.has(e.target):
 			var stack: int = popup_counts.get(e.target, 0)
 			popup_counts[e.target] = stack + 1
-			popup(text, views[e.target].position + Vector2(0, -730 - stack * 95), color)
+			popup(text, views[e.target].position + Vector2(0, -views[e.target].body_height - 50 - stack * 110), color)
 			logs.append(rules.units[e.target].name + " " + text)
 	if audible:
 		var heal: bool = record.events.any(func(e): return e.type == "heal")
@@ -363,6 +373,29 @@ func _impact(record: Dictionary) -> void:
 		await capture("impact")
 		if action_capture: get_tree().quit()
 
+func feedback_tween(owner_node: Node) -> Tween:
+	feedback_tweens = feedback_tweens.filter(func(t): return t.is_valid())
+	var t := owner_node.create_tween().set_speed_scale(director.speed)
+	feedback_tweens.append(t)
+	return t
+
+func pause_feedback(value: bool) -> void:
+	for t in feedback_tweens:
+		if t.is_valid():
+			if value: t.pause()
+			else: t.play()
+	for view in views.values(): view.presentation_paused = value
+	sound.stream_paused = value
+
+func clear_feedback() -> void:
+	for t in feedback_tweens:
+		if t.is_valid(): t.kill()
+	feedback_tweens.clear()
+	pause_feedback(false)
+	for child in popup_layer.get_children():
+		popup_layer.remove_child(child)
+		child.queue_free()
+
 func popup(text: String, pos: Vector2, color: Color) -> void:
 	var canvas_pos := world.get_canvas_transform() * pos
 	canvas_pos.x = clampf(canvas_pos.x, 350, 3490)
@@ -371,12 +404,13 @@ func popup(text: String, pos: Vector2, color: Color) -> void:
 	p.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	p.add_theme_color_override("font_outline_color", Color("070b10"))
 	p.add_theme_constant_override("outline_size", 13)
-	var t := p.create_tween().set_parallel(true)
+	var t := feedback_tween(p).set_parallel(true)
 	t.tween_property(p, "position:y", p.position.y - 90, 0.9)
 	t.tween_property(p, "modulate:a", 0.0, 0.4).set_delay(0.5)
 	t.chain().tween_callback(p.queue_free)
 
 func _presentation_done() -> void:
+	clear_feedback()
 	if not running: return
 	refresh()
 	if paused: return
@@ -423,11 +457,12 @@ func refresh(state: Dictionary = {}) -> void:
 			var remaining: String = "  %d/%d" % [int(sk.limit) - int(u.used.get(sk_id, 0)), sk.limit] if sk.has("limit") else ""
 			var b := Button.new()
 			b.text = "%d  %s%s" % [i+1, sk.name, remaining]
-			b.custom_minimum_size = Vector2(480, 200)
-			b.add_theme_font_size_override("font_size", 38)
-			if u.side == 0: b.icon = art.skill_icon(u.visual, i)
+			if u.skills.size() > 3: b.text = "%d  %s\n%s" % [i+1, sk.name, remaining.strip_edges()]
+			b.custom_minimum_size = Vector2(350 if u.skills.size() > 3 else 480, 140)
+			b.add_theme_font_size_override("font_size", 32 if u.skills.size() > 3 else 38)
+			if u.side == 0: b.icon = art.skill_icon(u.visual, int(sk.get("icon_index", mini(i, 2))))
 			b.expand_icon = true
-			b.add_theme_constant_override("icon_max_width", 118)
+			b.add_theme_constant_override("icon_max_width", 78 if u.skills.size() > 3 else 118)
 			b.disabled = locked or u.side != 0 or rules.targets(u.id, sk_id).is_empty()
 			b.tooltip_text = sk.desc + "\n发动位 " + str(sk.launch) + " → 目标位 " + str(sk.target)
 			if rules.targets(u.id, sk_id).is_empty(): b.tooltip_text += "\n不可用：阵位不符、目标不存在或次数耗尽"
@@ -527,6 +562,9 @@ func toggle_auto() -> void:
 func toggle_speed() -> void:
 	director.speed = 2.0 if director.speed == 1.0 else 1.0
 	if director.tween and director.tween.is_valid(): director.tween.set_speed_scale(director.speed)
+	for t in feedback_tweens:
+		if t.is_valid(): t.set_speed_scale(director.speed)
+	for view in views.values(): view.presentation_speed = director.speed
 	speed_button.text = "速度 ×%d" % director.speed
 
 func toggle_fullscreen() -> void:
@@ -537,6 +575,7 @@ func show_pause() -> void:
 	if not running: return
 	decision_token += 1
 	paused = true
+	pause_feedback(true)
 	if director.tween and director.tween.is_valid(): director.tween.pause()
 	director.set_process(false)
 	var p := make_modal("整备与设置", "当前行动已暂停。恢复后继续同一次结算。\n震动、声音与演出速度不会影响战斗结果。\n\n换装验证仅替换守卫的外观，规则数据不变。")
@@ -553,6 +592,7 @@ func show_pause() -> void:
 
 func resume_battle() -> void:
 	paused = false
+	pause_feedback(false)
 	clear_modal()
 	director.set_process(true)
 	if director.busy:
@@ -574,7 +614,9 @@ func show_result() -> void:
 	if not running: return
 	running = false
 	locked = true
+	clear_feedback()
 	director.cleanup()
+	director.set_process(true)
 	for child in popup_layer.get_children():
 		popup_layer.remove_child(child)
 		child.queue_free()
@@ -632,7 +674,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		KEY_Q: select_skill("forward")
 		KEY_E: select_skill("back")
 		KEY_G: select_skill("defend")
-		KEY_1, KEY_2, KEY_3:
+		KEY_1, KEY_2, KEY_3, KEY_4:
 			if not rules.current.is_empty():
 				var index: int = event.keycode - KEY_1
 				if index < rules.units[rules.current].skills.size(): select_skill(rules.units[rules.current].skills[index])

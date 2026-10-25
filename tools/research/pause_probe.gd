@@ -45,7 +45,8 @@ func run() -> void:
 		app.queue_free()
 		await process_frame
 	print("PAUSE_PROBE ", JSON.stringify(results))
-	quit(0 if not results[0].all_frozen and results[1].all_frozen else 1)
+	# Both paths now freeze after the production feedback-clock fix.
+	quit(0 if results.all(func(r): return r.all_frozen and not r.dead_restored_before_finish) else 1)
 
 func snapshot() -> Dictionary:
 	var popup = app.popup_layer.get_child(0)

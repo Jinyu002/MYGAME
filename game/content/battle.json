@@ -2,7 +2,7 @@
   "version": "demo-0.2",
   "actors": [
     {"id":"warden","name":"守卫","role":"壁垒 / 控制","side":0,"hp":40,"speed":3,"armor":20,"dodge":5,"bleed_resist":20,"stun_resist":25,"skills":["cut","bash","cover"],"visual":"warden"},
-    {"id":"duelist","name":"游刃","role":"突进 / 流血","side":0,"hp":30,"speed":6,"armor":5,"dodge":10,"bleed_resist":15,"stun_resist":15,"skills":["slash","lunge","feint"],"visual":"duelist"},
+    {"id":"duelist","name":"游刃","role":"突进 / 流血","side":0,"hp":30,"speed":6,"armor":5,"dodge":10,"bleed_resist":15,"stun_resist":15,"skills":["slash","lunge","feint","resolve"],"visual":"duelist"},
     {"id":"ranger","name":"游弓","role":"远程 / 破甲","side":0,"hp":28,"speed":5,"armor":5,"dodge":10,"bleed_resist":10,"stun_resist":15,"skills":["shot","volley","expose"],"visual":"ranger"},
     {"id":"mender","name":"灯医","role":"治疗 / 净化","side":0,"hp":26,"speed":4,"armor":0,"dodge":5,"bleed_resist":25,"stun_resist":20,"skills":["mend","cleanse","spark"],"visual":"mender"},
     {"id":"guard","name":"骸骨卫士","role":"前排 / 护甲","side":1,"hp":32,"speed":2,"armor":15,"dodge":0,"bleed_resist":20,"stun_resist":20,"skills":["strike"],"visual":"guard"},
@@ -11,6 +11,7 @@
     {"id":"bolter_b","name":"墓穴弩手","role":"后排 / 压迫","side":1,"hp":22,"speed":4,"armor":0,"dodge":5,"bleed_resist":10,"stun_resist":10,"skills":["bolt","shove"],"visual":"bolter"}
   ],
   "skills": {
+    "resolve":{"name":"决意突刺","desc":"演出体验技能：必中且必定暴击（1.5倍伤害），每战2次；不限阵位。","launch":[1,2,3,4],"target":[1,2,3,4],"min":7,"max":10,"accuracy":10000,"sure_hit":true,"crit":10000,"kind":"damage","limit":2,"icon_index":1},
     "cut":{"name":"断击","desc":"坚实的近战斩击。","launch":[1,2],"target":[1,2],"min":8,"max":12,"accuracy":9500,"crit":500,"kind":"damage"},
     "bash":{"name":"盾震","desc":"80%基础概率眩晕；每战2次。","launch":[1,2],"target":[1,2],"min":3,"max":5,"accuracy":9500,"crit":0,"kind":"damage","effect":"stun","chance":8000,"limit":2},
     "cover":{"name":"掩护","desc":"友方受到的直接伤害降低35%，至守卫下次行动。","launch":[1,2,3,4],"target":[1,2,3,4],"min":0,"max":0,"kind":"guard","friendly":true},

@@ -1,5 +1,7 @@
 # 原创 RPG · 战斗垂直切片
 
+**2026-10-26 v0.4：**已应用紧凑HUD、大立绘、近战距离及暂停/死亡恢复优化。[本轮说明](docs/research/PRESENTATION_ITERATION_04.md)。体验必暴：开战后游刃按 **4 → 点击敌人 → 空格**，释放「决意突刺」，每战2次。快捷键现支持1–4。下文v0.3及“仅研究”描述为历史阶段。
+
 长期原创 RPG 项目。当前已实现本地可测试战斗 Demo v0.3。交付日期：2026-10-25。
 
 2026-10-26新增：[现有演出诊断](docs/research/CURRENT_PRESENTATION_AUDIT.md)、[DD2程序集研究](docs/research/DD2_MANAGED_RESEARCH.md)、[P0/P1/P2优化方案](docs/research/PRESENTATION_OPTIMIZATION_PLAN.md)。本轮仅研究与隔离原型，正式演出尚未应用这些建议。

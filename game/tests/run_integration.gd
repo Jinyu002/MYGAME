@@ -22,6 +22,13 @@ func run() -> void:
 	if app.director.busy: app.director.skip()
 	await process_frame
 	check(app.running and not app.locked and app.rules.current == "duelist", "initial hero turn reaches command UI")
+	var critical_key := InputEventKey.new()
+	critical_key.keycode = KEY_4
+	critical_key.pressed = true
+	app._unhandled_key_input(critical_key)
+	app.choose_target("guard")
+	check(app.skill_buttons.size() == 4 and app.selected_skill == "resolve" and not app.confirm.disabled, "fourth skill shortcut selects guaranteed critical")
+	app.cancel_selection()
 	var revision: int = app.rules.revision
 	app.skill_buttons[0].pressed.emit()
 	check(app.selected_skill == "slash" and app.confirm.disabled, "skill button needs target confirmation")

@@ -1,5 +1,9 @@
 # 测试与验收
 
+> v0.4最终回归：1256规则 + 19集成 + 108演出 + 15反馈 = 1398项通过；4K全屏/QHD窗口各108项图形演出通过，均检查四技能HUD截图。整场图形smoke种子4207：5轮、54条记录、胜利。日志 artifacts/final-integration.log、final-smoke.log、presentation-3840x2160.log、presentation-2560x1440.log。当前未重新做性能长测、运行中反复全屏切换或音频听感验收。
+
+> v0.4：新增run_feedback.gd（15项）及100种子必暴测试；规则1256项、演出108项通过，实际4K截图检查完成。暂停探针已改为断言修复后两条路径均冻结且死者不重现，旧复现结果仅作历史证据。当前快照/限制见 [迭代报告](research/PRESENTATION_ITERATION_04.md)。
+
 > 2026-10-26新增诊断：隔离副本暂停250ms复现弹字/死亡/闪光继续推进，场景暂停原型冻结全部取样值；两组均复现收镜期间死者重新不透明。见 [诊断与实测](research/CURRENT_PRESENTATION_AUDIT.md)。复现命令：`powershell -ExecutionPolicy Bypass -File tools/research/run-pause-probe.ps1`。本轮没有以headless结果冒充4K/QHD视觉验证，也未重跑全部正式回归。参考库双基线审计9826项一致。
 
 > v0.3实测更新：956项规则/资源检查、18项场景检查、44项演出专项检查通过，100个种子战斗完成，平均5.59轮；固定seed 4207图形战斗5轮胜利。QHD及真正3840×2160截图已输出。最新日志、性能与限制见 [Demo交付记录](DEMO_DELIVERY.md)。下文P0“未实现”是历史记录，未来验收矩阵仍作为质量目标。

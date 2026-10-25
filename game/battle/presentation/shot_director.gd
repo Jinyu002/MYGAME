@@ -40,7 +40,11 @@ func play(action: Dictionary, actor_views: Dictionary, rig: Camera2D) -> void:
 	elapsed = 0.0
 	impact_age = 0.0
 	homes.clear()
-	for id in views: homes[id] = views[id].position
+	for id in views:
+		homes[id] = views[id].position
+		var unit: Dictionary = record.after.units[id]
+		var rank: int = record.after.teams[int(unit.side)].find(id)
+		if rank >= 0: homes[id] = Vector2(1550 - rank * 370 if unit.side == 0 else 2290 + rank * 370, 1580)
 	var actor: String = record.get("actor", "")
 	var skill: String = record.get("skill", "")
 	has_damage = record.events.any(func(e): return e.type == "damage")
@@ -53,9 +57,13 @@ func play(action: Dictionary, actor_views: Dictionary, rig: Camera2D) -> void:
 		return
 	var definition: Dictionary = skills.get(skill, {})
 	profile_name = "support" if definition.get("friendly", false) else ("ranged" if definition.get("ranged", false) else "melee")
-	if record.events.any(func(e): return e.get("critical", false)): profile_name = "critical"
+	var critical: bool = record.events.any(func(e): return e.get("critical", false))
 	if definition.get("kind", "") == "move": profile_name = "move"
-	profile = config.profiles[profile_name]
+	profile = config.profiles[profile_name].duplicate(true)
+	if critical and profile_name != "move":
+		profile_name = "critical"
+		for key in ["hold", "return", "shake", "blur", "saturation"]: profile[key] = config.profiles.critical[key]
+		profile.zoom = minf(1.44, float(profile.zoom) + 0.08)
 	if profile_name == "move":
 		tween.set_parallel(true)
 		for id in views:
@@ -63,7 +71,7 @@ func play(action: Dictionary, actor_views: Dictionary, rig: Camera2D) -> void:
 			var team: Array = record.after.teams[unit.side]
 			var rank: int = team.find(id)
 			if rank < 0: continue
-			homes[id] = Vector2(1550 - rank * 370 if unit.side == 0 else 2290 + rank * 370, 1390)
+			homes[id] = Vector2(1550 - rank * 370 if unit.side == 0 else 2290 + rank * 370, 1580)
 			tween.tween_property(views[id], "position", homes[id], 0.42).set_trans(Tween.TRANS_SINE)
 		tween.chain().set_parallel(false).tween_callback(_impact)
 		tween.tween_interval(0.15)
@@ -88,14 +96,14 @@ func play(action: Dictionary, actor_views: Dictionary, rig: Camera2D) -> void:
 		views[id].modulate.a = 1.0 if id == actor or id in targets else 0.0
 		views[id].z_index = 20 if id == actor else (19 if id in targets else 0)
 	views[actor].pose = config.poses.get(skill, "attack")
-	var gap: float = profile.gap
-	var actor_goal := Vector2(1920 - direction * gap * 0.5, 1280)
+	var gap: float = config.get("contact_gaps", {}).get(skill, profile.gap)
+	var actor_goal := Vector2(1920 - direction * gap * 0.5, 1420)
 	if targets.is_empty(): actor_goal.x = 1920
-	views[actor].position = actor_goal - Vector2(direction * 30, 0)
+	views[actor].position = actor_goal - Vector2(direction * (90 if not definition.get("ranged", false) else 30), 0)
 	for i in range(targets.size()):
-		views[targets[i]].position = Vector2(1920 + direction * (gap * 0.5 + i * 360), 1280)
+		views[targets[i]].position = Vector2(1920 + direction * (gap * 0.5 + i * 360), 1420)
 	var zoom: float = float(profile.zoom) - maxf(0, targets.size() - 1) * 0.15
-	var center := Vector2(1920 + direction * maxf(0, targets.size() - 1) * 180, 965)
+	var center := Vector2(1920 + direction * maxf(0, targets.size() - 1) * 180, 1040)
 	tween.set_parallel(true)
 	tween.tween_property(views[actor], "position", actor_goal, profile.enter)
 	tween.tween_property(camera, "position", center, profile.enter)
@@ -103,7 +111,7 @@ func play(action: Dictionary, actor_views: Dictionary, rig: Camera2D) -> void:
 	tween.tween_method(_focus, 0.0, 1.0, profile.enter)
 	tween.chain().set_parallel(false).tween_callback(_impact)
 	tween.tween_interval(0.055 if profile_name == "critical" else 0.035)
-	tween.set_parallel(true)
+	tween.chain().set_parallel(true)
 	var drift: float = profile.drift * direction
 	if definition.get("ranged", false): drift *= -0.5
 	tween.tween_property(views[actor], "position:x", actor_goal.x + drift, profile.hold).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -154,12 +162,15 @@ func _process(delta: float) -> void:
 		skip()
 
 func _restore_pose() -> void:
-	for view in views.values():
+	for id in views:
+		var view = views[id]
 		if is_instance_valid(view):
 			view.pose = "idle"
 			view.z_index = 0
 			view.cinematic = false
-			view.modulate = Color.WHITE
+			var dead: bool = record.get("after", {}).get("units", {}).get(id, {}).get("hp", 1) <= 0
+			view.modulate = Color(1, 1, 1, 0 if dead else 1)
+			view.visible = not dead
 
 func skip() -> void:
 	if not busy: return

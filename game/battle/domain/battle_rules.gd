@@ -100,7 +100,7 @@ func targets(id: String, skill_id: String) -> Array:
 
 func hit_chance(skill_id: String, target_id: String) -> int:
 	var s: Dictionary = definitions.skills[skill_id]
-	if s.get("friendly", false): return 10000
+	if s.get("friendly", false) or s.get("sure_hit", false): return 10000
 	return clampi(int(s.accuracy) - int(units[target_id].dodge) * 100, 500, 10000)
 
 func damage_value(base: int, critical: bool, target_id: String) -> int:
@@ -115,8 +115,9 @@ func preview(skill_id: String, target_id: String) -> Dictionary:
 	var low: int = int(sk.min)
 	var high: int = int(sk.max)
 	if sk.kind == "damage":
-		low = damage_value(low, false, target_id)
-		high = damage_value(high, false, target_id)
+		var guaranteed_crit: bool = int(sk.get("crit", 0)) == 10000
+		low = damage_value(low, guaranteed_crit, target_id)
+		high = damage_value(high, guaranteed_crit, target_id)
 	return {"hit":hit_chance(skill_id, target_id), "min":low, "max":high}
 
 func snapshot() -> Dictionary:

@@ -1,5 +1,7 @@
 # 现有战斗演出诊断 · 2026-10-26
 
+> 后续v0.4已修复本文部分问题。本文保留修改前诊断证据；当前实现与实测以 [演出迭代](PRESENTATION_ITERATION_04.md) 为准。
+
 范围：基于 `fbcace0` 朝向修复及后续配置提交的正式 `game/`。用户新增的 MCP 插件与 project.godot 改动保留。本轮不修改正式玩法或表现代码；仅研究、审计工具维护和独立副本实验。
 
 证据标签：**S**＝本地代码静态确认；**R**＝本轮独立运行验证；**H**＝待验证体验假设。参考研究和建议分别见 [DD2研究](DD2_MANAGED_RESEARCH.md)、[优化计划](PRESENTATION_OPTIMIZATION_PLAN.md)。

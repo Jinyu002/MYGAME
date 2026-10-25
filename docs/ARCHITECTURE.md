@@ -1,5 +1,7 @@
 # 技术架构 v0.1
 
+> v0.4已实施：main登记反馈Tween并显式暂停/变速/释放，ActorView有独立表现时钟开关；不用全局SceneTree暂停。导演按after快照恢复死亡可见性和最终阵位，暴击为基础profile修饰，contact_gaps为技能表现配置。规则增加可选sure_hit并让必暴预览包含1.5倍修正。见 [迭代说明](research/PRESENTATION_ITERATION_04.md)。未引入多段事件架构。
+
 > 2026-10-26演出专项决策：保留确定性规则和已结算记录接口；先修表现时钟与恢复语义，再做局部镜头/反馈优化。多段事件接口仅为待确认方案，未实现。见 [优化方案](research/PRESENTATION_OPTIMIZATION_PLAN.md)。
 
 > v0.3已实施：独立game工程、规则内核、UI、Camera2D、Director、资源映射及测试已存在。具体实现采用JSON定义和独立Dictionary状态，其他差异与当前边界见 [ADR 0002](adr/0002-playable-demo.md)；下文为原设计基线，不应把其中全部计划当成已实现。

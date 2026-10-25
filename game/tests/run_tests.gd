@@ -25,6 +25,17 @@ func force_turn(r, id: String) -> void:
 	r.revision += 1
 
 func run() -> void:
+	for test_seed in range(100):
+		var critical_rules = fresh(test_seed)
+		force_turn(critical_rules, "duelist")
+		critical_rules.units.guard.dodge = 100
+		var predicted: Dictionary = critical_rules.preview("resolve", "guard")
+		var hit: Dictionary = critical_rules.apply(critical_rules.command("resolve", "guard"))
+		var damage_events: Array = hit.events.filter(func(e): return e.type == "damage")
+		check(damage_events.size() == 1 and damage_events[0].critical, "guaranteed critical despite dodge seed %d" % test_seed)
+		check(damage_events[0].amount >= predicted.min and damage_events[0].amount <= predicted.max and predicted.hit == 10000, "critical preview matches damage seed %d" % test_seed)
+		critical_rules.units.duelist.used.resolve = 2
+		check(critical_rules.targets("duelist", "resolve").is_empty(), "critical skill respects use limit")
 	var r = fresh()
 	check(r.validate_data().is_empty(), "default data validates")
 	var bad: Dictionary = r.definitions.duplicate(true)

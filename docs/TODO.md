@@ -1,5 +1,7 @@
 # TODO 与当前状态
 
+> v0.4最新状态覆盖下表旧研究记录：PERF-P0-01/02已实现且回归通过；PERF-P1部分完成（HUD/尺寸/近战距离/暴击/时序分组/归位），包围盒镜头与弹字分组仍待实现。新增resolve必暴体验技能已测，正式平衡未完成；裂刃收刀姿态仍需后续命中帧。见 [本轮结果](research/PRESENTATION_ITERATION_04.md)。
+
 2026-10-26新增演出专项：研究与诊断已完成，正式game实现未改，详见 [P0/P1/P2清单](research/PRESENTATION_OPTIMIZATION_PLAN.md)。
 
 | ID | 目标/模块 | 当前状态 | 暂未实施原因 | 触发条件/下一动作 | 当前影响 |

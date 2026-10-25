@@ -24,7 +24,12 @@ func run() -> void:
 	app.director.impact.connect(func(_r): impacts += 1)
 	app.director.finished.connect(func(): completions += 1)
 	var cases := [
+		["duelist", "resolve", ["guard"], "damage", true, "critical"],
 		["duelist", "slash", ["guard"], "damage", false, "melee"],
+		["warden", "cut", ["raider"], "damage", false, "melee"],
+		["duelist", "lunge", ["guard"], "damage", false, "melee"],
+		["duelist", "feint", ["raider"], "damage", false, "melee"],
+		["bolter_a", "shove", ["warden"], "damage", false, "melee"],
 		["ranger", "volley", ["bolter_a", "bolter_b"], "damage", false, "ranged"],
 		["warden", "bash", ["guard"], "damage", true, "critical"],
 		["mender", "mend", ["duelist"], "heal", false, "support"],
@@ -41,6 +46,7 @@ func run() -> void:
 		for target in item[2]: events.append({"target":target, "type":item[3], "amount":8, "critical":item[4]})
 		var record := {"actor":item[0], "skill":item[1], "targets":item[2], "events":events, "before":state, "after":state.duplicate(true)}
 		app.director.play(record, app.views, app.camera)
+		app.hint.text = app.rules.definitions.skills[item[1]].name
 		check(app.director.profile_name == item[5], "profile " + item[1])
 		await create_timer(0.24).timeout
 		if item[5] != "move":

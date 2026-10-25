@@ -33,6 +33,7 @@ if ($Verify) {
     if (Test-Path -LiteralPath $managedBaseline) {
         $previous += @(Import-Csv -LiteralPath $managedBaseline)
     }
+    $previous += @(Import-Csv -LiteralPath (Join-Path $output 'ui-manifest-2026-10-26.csv'))
     $changes = @(Compare-Object $previous $rows -Property Path,Bytes,SHA256)
     if ($changes.Count -gt 0) { $changes | Format-Table; throw 'study differs from baseline; investigate without modifying reference files' }
     Write-Output "PASS: $($rows.Count) reference files match baseline by path, size and SHA256."
