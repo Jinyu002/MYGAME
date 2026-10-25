@@ -1,6 +1,16 @@
 # 原创 RPG · 战斗垂直切片
 
-长期原创 RPG 项目。第一阶段为研究和规划，尚无可玩的战斗 Demo。当前交付日期：2026-10-25。
+长期原创 RPG 项目。当前已实现本地可测试战斗 Demo v0.3。交付日期：2026-10-25。
+
+## 立即体验
+
+双击工作区根目录 **[Start-Demo.cmd](Start-Demo.cmd)**。启动器使用本机Godot 4.7.2，只导入/运行 `game/`。也可在Godot项目管理器中导入 `game/project.godot` 后按F6/F5运行主场景。
+
+四名英雄对四名敌人：选技能 → 点击角色 → 确认。`1–3`技能、`Q/E`换位、`G`坚守、空格确认、Esc设置/暂停、F11全屏。可自动战斗、切换速度/震动/声音，在设置中切换守卫外观验证素材替换。支持胜负、撤退、重试和返回标题。
+
+这是使用参考美术的功能与表现测试版，非正式发行版。待机暂用完整防御姿态，背景为程序绘制；正式美术、复杂动画与数值难度还需迭代。参考素材按用户本次明确授权用于本地测试，原文件不变。
+
+开发者运行自动回归：`powershell -ExecutionPolicy Bypass -File tools/test-demo.ps1`。图形演出验收：`powershell -ExecutionPolicy Bypass -File tools/test-render.ps1 -Resolution 3840x2160`。测试结果和当前限制见 [Demo交付记录](docs/DEMO_DELIVERY.md)。
 
 ## 从这里开始
 
@@ -14,9 +24,9 @@
 
 ## 工程边界
 
-`study/` 是绝对只读参考库，禁止导入、改写或提交到正式资源库。现有根 `project.godot` 是空工程且包含 study 在扫描范围内，保留原文件，但不要用它启动导入。后续正式工程将在 `game/project.godot` 独立建立；该路径目前尚未创建。研究输出在 `docs/research/`，脚本在 `tools/`。
+`study/` 是绝对只读参考库，禁止原地导入或改写。根 `project.godot` 是旧空工程且包含 study 在扫描范围内，保留原文件，但不要用它启动导入。正式工程已建立于 `game/project.godot`；研究输出在 `docs/research/`，脚本在 `tools/`。美术处理脚本只读取study并在game写出PNG副本，不复制业务配置或脚本。
 
-已核实本机 Godot：`E:/SteamLibrary/steamapps/common/Godot Engine/godot.windows.opt.tools.64.exe`，版本 `4.7.2.stable.steam.ed1daf0bf`。Git：`D:/Git/cmd/git.exe`。当前无主场景，所以暂无游戏启动命令；不要将规划文档当成已实现功能。
+已核实本机 Godot：`E:/SteamLibrary/steamapps/common/Godot Engine/godot.windows.opt.tools.64.exe`，版本 `4.7.2.stable.steam.ed1daf0bf`。Git：`D:/Git/cmd/git.exe`。启动脚本支持用 `-GodotPath` 覆盖路径。中文字体使用系统字体，不复制Windows字体到项目。
 
 在工作区运行只读资料审计：
 
@@ -26,4 +36,4 @@
 
 `study-manifest.csv` 是资料路径/大小/SHA256 索引，不包含素材或配置正文。首次生成后不得静默重建。若用户更新参考资料，先记录差异及授权，再单独建立新版本基线。
 
-第一阶段不需要用户立即制作资源。下一步自主实现确定性战斗规则与测试，再接入演出和 UI；一个原创角色的试制规格见美术文档。第三方参考素材尚未获准集成，使用独立程序占位。
+目前不需要用户立即制作资源。请先体验战斗节奏、阵位、技能与界面；原创角色试制规格仍见美术文档。v0.1研究文档是历史设计基线，v0.2切片实现见ADR 0002，v0.3原作式特写演出见 [ADR 0003](docs/adr/0003-action-tableau.md)。

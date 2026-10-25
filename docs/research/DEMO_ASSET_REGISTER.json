@@ -1,0 +1,306 @@
+﻿[
+    {
+        "source":  "study/heroes/crusader/crusader_A/anim/crusader.sprite.defend.png",
+        "destination":  "game/assets/reference/warden_idle.png",
+        "operation":  "Extract region defend; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "15B1504B0A2054433D3CD187415A8B9A41E9F9E77170846B2419D1D0DC3E4D1E",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/crusader/crusader_A/anim/crusader.sprite.attack_sword.png",
+        "destination":  "game/assets/reference/warden_attack.png",
+        "operation":  "Extract region attack_sword; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "46E30D58C68F3D413953849DEF708D16FF56D6B90988F9833B3271222B858845",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/crusader/crusader_A/crusader_portrait_roster.png",
+        "destination":  "game/assets/reference/warden_portrait.png",
+        "operation":  "Copy PNG only",
+        "sha256":  "45E3CFE259C2F15901D8BDF1EB624835ED1BEB1CB28F2EF4ADD18F78E0DB3D05",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/crusader/crusader.ability.one.png",
+        "destination":  "game/assets/reference/warden_one.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "942DF9BEF2E4B7A222285AEF141E42220FB038F9C30FD4A1017F37A380DD70CA",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/crusader/crusader.ability.two.png",
+        "destination":  "game/assets/reference/warden_two.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "6954D06F00BDBE393BB61663BD671286DA9E2080E176D37A32875CA0B45D59F8",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/crusader/crusader.ability.three.png",
+        "destination":  "game/assets/reference/warden_three.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "F1ACB1370373E073C80DE0173180388A1A49129D3A1C696236C759E1DB7924A6",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/highwayman/highwayman_A/anim/highwayman.sprite.defend.png",
+        "destination":  "game/assets/reference/duelist_idle.png",
+        "operation":  "Extract region defend; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "A2D79404F9B7454936B30B65A2F4375076283DC56C616A0F504B0B54B1B639B5",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/highwayman/highwayman_A/anim/highwayman.sprite.attack_slice.png",
+        "destination":  "game/assets/reference/duelist_attack.png",
+        "operation":  "Extract region attack_slice; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "396112D3034D2390DEEDD3127ABB3DE8F0AD9EDA4167A54246D7AE2C99AEB7CB",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/highwayman/highwayman_A/highwayman_portrait_roster.png",
+        "destination":  "game/assets/reference/duelist_portrait.png",
+        "operation":  "Copy PNG only",
+        "sha256":  "ED2544A8E7E5E4E9748C9903F8C95E3AB8152206FA06C510200DB163477399EA",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/highwayman/highwayman.ability.one.png",
+        "destination":  "game/assets/reference/duelist_one.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "46DA58E9CE8F51500FF676E0407525094CD01A7CC51F46F113481555C543190F",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/highwayman/highwayman.ability.two.png",
+        "destination":  "game/assets/reference/duelist_two.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "9EFE2164B3EE77EE306252E492DA0FF44EBC47AA4D9486F4B9DBEC9BADF263A6",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/highwayman/highwayman.ability.three.png",
+        "destination":  "game/assets/reference/duelist_three.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "F00E8C7E16CCE09227E741D7A108D1FD4BCA723E7FEF0695111EB5DEA6B0E44A",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/arbalest/arbalest_A/anim/arbalest.sprite.defend.png",
+        "destination":  "game/assets/reference/ranger_idle.png",
+        "operation":  "Extract region defend; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "F52EAFC3D84921827C1C4FACB5C20F4A9B4ECAEFC333EE1BA14A9A017CB08858",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/arbalest/arbalest_A/anim/arbalest.sprite.attack_ranged.png",
+        "destination":  "game/assets/reference/ranger_attack.png",
+        "operation":  "Extract region attack_ranged; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "2368732B7CA2C6C33E7A84FF3997ADEB4F52B55A59302CE665760D24F0B1539C",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/arbalest/arbalest_A/arbalest_portrait_roster.png",
+        "destination":  "game/assets/reference/ranger_portrait.png",
+        "operation":  "Copy PNG only",
+        "sha256":  "0451F1398D98F6CF9A68EF5E545A3ED1AF14605C07BA9C0E7E05A19639EEFD3B",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/arbalest/arbalest.ability.one.png",
+        "destination":  "game/assets/reference/ranger_one.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "8CCC08034F6139C1738F03D7E81CD84BF42324F48BC193ADB923C17FE220CF26",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/arbalest/arbalest.ability.two.png",
+        "destination":  "game/assets/reference/ranger_two.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "C44CEBCA328FE1390C89E165D90D1BEBC6F29F5C8CB101E693A7931302414EB8",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/arbalest/arbalest.ability.three.png",
+        "destination":  "game/assets/reference/ranger_three.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "30E1819B0E015BAB2F97EEEA933FCE417B74439D1FD91A461FA70C9A029B4068",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/vestal/vestal_A/anim/vestal.sprite.defend.png",
+        "destination":  "game/assets/reference/mender_idle.png",
+        "operation":  "Extract region defend; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "6A2BEA8B5CE5602D823C0B8C0D1B436BC1834BC42A27C66C52403B61946BEDD6",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/vestal/vestal_A/anim/vestal.sprite.attack_heal.png",
+        "destination":  "game/assets/reference/mender_attack.png",
+        "operation":  "Extract region attack_heal; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "955FCE264D7669A78CD78BDD88F72C0C9B08988B9CAE7F3646A361E426D26588",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/vestal/vestal_A/vestal_portrait_roster.png",
+        "destination":  "game/assets/reference/mender_portrait.png",
+        "operation":  "Copy PNG only",
+        "sha256":  "3281FD62F13A25D725C5F26CA1A240BB9C11908E428565D08FD861D8BB07AADC",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/vestal/vestal.ability.one.png",
+        "destination":  "game/assets/reference/mender_one.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "E6B05A8AE7CA02384649E2BC32A19D8164723939637BB1EA69A5D5B524F02A93",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/vestal/vestal.ability.two.png",
+        "destination":  "game/assets/reference/mender_two.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "508E5F2AA6F998DE1556AD2F3A021028C205C8DC6D2BAA7B096900BCD8D427F9",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/vestal/vestal.ability.three.png",
+        "destination":  "game/assets/reference/mender_three.png",
+        "operation":  "Copy PNG only; Demo skill differs from original",
+        "sha256":  "94A1DB8F10ED8D59AAEB89DC5EA22379CAF2F00542C486B0886AEAF1C22BCD49",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/monsters/skeleton_defender/anim/skeleton_defender.sprite.defend.png",
+        "destination":  "game/assets/reference/guard_idle.png",
+        "operation":  "Extract region defend; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "534515CD3668B67EBB9223BDDF37E9012159176D06A645BE13ABEC89134ABF8D",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/monsters/skeleton_defender/anim/skeleton_defender.sprite.attack_axe.png",
+        "destination":  "game/assets/reference/guard_attack.png",
+        "operation":  "Extract region attack_axe; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "E9C788E04C24F05AD623DEEF3B332F1DEA74BDAF88800982C2412EF13935F603",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/monsters/skeleton_common/anim/skeleton_common.sprite.defend.png",
+        "destination":  "game/assets/reference/raider_idle.png",
+        "operation":  "Extract region defend; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "CCD73C5ACBC9A92E750C610EB27E39F5EA9ABA77D83B8AF86F3E9C5EF135C438",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/monsters/skeleton_common/anim/skeleton_common.sprite.attack_melee.png",
+        "destination":  "game/assets/reference/raider_attack.png",
+        "operation":  "Extract region attack_melee; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "F32909925C298B78DA95133F27DA6CC4FB0BDB0D65037D482BB3F48FFFCEA012",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/monsters/skeleton_arbalist/anim/skeleton_arbalist.sprite.defend.png",
+        "destination":  "game/assets/reference/bolter_idle.png",
+        "operation":  "Extract region defend; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "65F6ED150A00A3596E16857060F623A2CC1A9CD60CB8B7CA794937C36B4118A7",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/monsters/skeleton_arbalist/anim/skeleton_arbalist.sprite.attack_crossbow.png",
+        "destination":  "game/assets/reference/bolter_attack.png",
+        "operation":  "Extract region attack_crossbow; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "63273A89173746D710BC879223195525AB188401AEC9C9FE0B0795E6B3034FF7",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/crusader/crusader_B/anim/crusader.sprite.defend.png",
+        "destination":  "game/assets/reference/warden_variant.png",
+        "operation":  "Extract region defend; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "B6EB9DBDECCF11D204E427C0A3F09CCFBC7B818B41CEEC49E16C6FB0FFEE5743",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/crusader/crusader_A/anim/crusader.sprite.attack_stun.png",
+        "destination":  "game/assets/reference/warden_bash.png",
+        "operation":  "Extract region attack_stun; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "4AB563CEF550ECB21F58BACDA4BAAF8A1B80AAC3697C9DEEC8AB116D34786367",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/crusader/crusader_A/anim/crusader.sprite.attack_banner.png",
+        "destination":  "game/assets/reference/warden_support.png",
+        "operation":  "Extract region attack_banner; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "D5D63FC5008ABCB691AB24FBA86102ABA2C0E81C8E134A799459616A8788101A",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/highwayman/highwayman_A/anim/highwayman.sprite.attack_lunge.png",
+        "destination":  "game/assets/reference/duelist_lunge.png",
+        "operation":  "Extract region attack_lunge; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "7CA5C2DE759913DB4DFC580AEE13117A833852E8456050E4B37BF244DD2257CD",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/arbalest/arbalest_A/anim/arbalest.sprite.attack_artillery.png",
+        "destination":  "game/assets/reference/ranger_volley.png",
+        "operation":  "Extract region attack_artillery; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "006643912FCF35BEC681A9E5FD9F7114E0706E42697C074C5D13E343FE3EE5E9",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/arbalest/arbalest_A/anim/arbalest.sprite.attack_point.png",
+        "destination":  "game/assets/reference/ranger_mark.png",
+        "operation":  "Extract region attack_point; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "1C4C09CC7AA780E8C5A103BED09F3B6C6AFF030F4CAB55F6669D676DAB240FE3",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/heroes/vestal/vestal_A/anim/vestal.sprite.attack_lectionary.png",
+        "destination":  "game/assets/reference/mender_spell.png",
+        "operation":  "Extract region attack_lectionary; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "E344D398EA113D205BA60950876A98820568D98D599DC5A00DE57DEEEBC06715",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    },
+    {
+        "source":  "study/monsters/skeleton_arbalist/anim/skeleton_arbalist.sprite.attack_bayonet.png",
+        "destination":  "game/assets/reference/bolter_melee.png",
+        "operation":  "Extract region attack_bayonet; undo atlas rotation; atlas metadata read-only",
+        "sha256":  "4810412CFD5701371D477E8C8791C7A859CE382F8ACDC737BBCFF3F046588B1B",
+        "authorization":  "User explicit local Demo authorization 2026-10-25",
+        "distribution":  "Third-party redistribution not verified"
+    }
+]

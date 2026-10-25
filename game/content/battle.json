@@ -1,0 +1,34 @@
+{
+  "version": "demo-0.2",
+  "actors": [
+    {"id":"warden","name":"守卫","role":"壁垒 / 控制","side":0,"hp":40,"speed":3,"armor":20,"dodge":5,"bleed_resist":20,"stun_resist":25,"skills":["cut","bash","cover"],"visual":"warden"},
+    {"id":"duelist","name":"游刃","role":"突进 / 流血","side":0,"hp":30,"speed":6,"armor":5,"dodge":10,"bleed_resist":15,"stun_resist":15,"skills":["slash","lunge","feint"],"visual":"duelist"},
+    {"id":"ranger","name":"游弓","role":"远程 / 破甲","side":0,"hp":28,"speed":5,"armor":5,"dodge":10,"bleed_resist":10,"stun_resist":15,"skills":["shot","volley","expose"],"visual":"ranger"},
+    {"id":"mender","name":"灯医","role":"治疗 / 净化","side":0,"hp":26,"speed":4,"armor":0,"dodge":5,"bleed_resist":25,"stun_resist":20,"skills":["mend","cleanse","spark"],"visual":"mender"},
+    {"id":"guard","name":"骸骨卫士","role":"前排 / 护甲","side":1,"hp":32,"speed":2,"armor":15,"dodge":0,"bleed_resist":20,"stun_resist":20,"skills":["strike"],"visual":"guard"},
+    {"id":"raider","name":"荒冢行者","role":"近战 / 流血","side":1,"hp":25,"speed":5,"armor":5,"dodge":10,"bleed_resist":10,"stun_resist":15,"skills":["rake"],"visual":"raider"},
+    {"id":"bolter_a","name":"墓穴弩手","role":"后排 / 压迫","side":1,"hp":22,"speed":4,"armor":0,"dodge":5,"bleed_resist":10,"stun_resist":10,"skills":["bolt","shove"],"visual":"bolter"},
+    {"id":"bolter_b","name":"墓穴弩手","role":"后排 / 压迫","side":1,"hp":22,"speed":4,"armor":0,"dodge":5,"bleed_resist":10,"stun_resist":10,"skills":["bolt","shove"],"visual":"bolter"}
+  ],
+  "skills": {
+    "cut":{"name":"断击","desc":"坚实的近战斩击。","launch":[1,2],"target":[1,2],"min":8,"max":12,"accuracy":9500,"crit":500,"kind":"damage"},
+    "bash":{"name":"盾震","desc":"80%基础概率眩晕；每战2次。","launch":[1,2],"target":[1,2],"min":3,"max":5,"accuracy":9500,"crit":0,"kind":"damage","effect":"stun","chance":8000,"limit":2},
+    "cover":{"name":"掩护","desc":"友方受到的直接伤害降低35%，至守卫下次行动。","launch":[1,2,3,4],"target":[1,2,3,4],"min":0,"max":0,"kind":"guard","friendly":true},
+    "slash":{"name":"裂刃","desc":"90%基础概率流血：每次行动前3点，持续2次。","launch":[1,2,3],"target":[1,2],"min":6,"max":9,"accuracy":9500,"crit":1000,"kind":"damage","effect":"bleed","chance":9000},
+    "lunge":{"name":"进身","desc":"攻击后自身前移一位。","launch":[2,3,4],"target":[1,2,3],"min":7,"max":10,"accuracy":9500,"crit":1000,"kind":"damage","self_move":-1},
+    "feint":{"name":"佯退","desc":"攻击后自身后移一位。","launch":[1,2,3],"target":[1,2],"min":4,"max":6,"accuracy":10000,"crit":500,"kind":"damage","self_move":1},
+    "shot":{"name":"穿隙","desc":"射击敌方中后排。","launch":[2,3,4],"target":[2,3,4],"min":7,"max":11,"accuracy":9500,"crit":1000,"kind":"damage","ranged":true},
+    "volley":{"name":"连射","desc":"同时攻击敌方第3、4位。","launch":[3,4],"target":[3,4],"min":4,"max":6,"accuracy":9000,"crit":500,"kind":"damage","all":true,"ranged":true},
+    "expose":{"name":"破势","desc":"命中后护甲降低20个百分点，持续2次行动。","launch":[2,3,4],"target":[1,2,3,4],"min":3,"max":5,"accuracy":10000,"crit":0,"kind":"damage","effect":"expose","chance":10000,"ranged":true},
+    "mend":{"name":"缝合","desc":"治疗7—10点；每战3次，不能复活。","launch":[3,4],"target":[1,2,3,4],"min":7,"max":10,"kind":"heal","friendly":true,"limit":3},
+    "cleanse":{"name":"净创","desc":"治疗3—4点并清除流血；每战3次。","launch":[2,3,4],"target":[1,2,3,4],"min":3,"max":4,"kind":"heal","friendly":true,"cure":true,"limit":3},
+    "spark":{"name":"灯火","desc":"无阵位限制的精准攻击。","launch":[1,2,3,4],"target":[1,2,3,4],"min":4,"max":7,"accuracy":10000,"crit":500,"kind":"damage","ranged":true},
+    "strike":{"name":"锈斧","desc":"沉重的前排攻击。","launch":[1,2],"target":[1,2],"min":6,"max":9,"accuracy":9500,"crit":500,"kind":"damage"},
+    "rake":{"name":"撕裂","desc":"80%基础概率施加流血。","launch":[1,2,3],"target":[1,2],"min":5,"max":8,"accuracy":9000,"crit":500,"kind":"damage","effect":"bleed","chance":8000},
+    "bolt":{"name":"墓箭","desc":"攻击敌方中后排。","launch":[3,4],"target":[2,3,4],"min":5,"max":8,"accuracy":9000,"crit":500,"kind":"damage","ranged":true},
+    "shove":{"name":"抵退","desc":"命中后将目标后推一位。","launch":[1,2],"target":[1,2],"min":3,"max":5,"accuracy":9500,"crit":0,"kind":"damage","push":1},
+    "defend":{"name":"坚守","desc":"直接伤害降低35%，直到下次行动开始。","launch":[1,2,3,4],"target":[1,2,3,4],"min":0,"max":0,"kind":"guard","friendly":true,"self":true},
+    "forward":{"name":"前移","desc":"与前方同伴交换阵位，消耗行动。","launch":[2,3,4],"target":[1,2,3,4],"min":0,"max":0,"kind":"move","friendly":true,"self":true,"self_move":-1},
+    "back":{"name":"后撤","desc":"与后方同伴交换阵位，消耗行动。","launch":[1,2,3],"target":[1,2,3,4],"min":0,"max":0,"kind":"move","friendly":true,"self":true,"self_move":1}
+  }
+}
