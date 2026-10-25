@@ -12,10 +12,12 @@ var breathing: float = 0.0
 var flash: float = 0.0
 var idle_clock: float = 0.0
 var cinematic: bool = false
+var facing: String = "right"
 
-func setup(art: RefCounted, visual: String) -> void:
+func setup(art: RefCounted, visual: String, side: int = 0) -> void:
 	catalog = art
 	visual_id = visual
+	facing = "right" if side == 0 else "left"
 	idle_clock = float(visual.hash() % 100) / 10.0
 
 func _process(delta: float) -> void:
@@ -41,6 +43,10 @@ func _draw() -> void:
 	var factor: float = body_height / idle.get_height()
 	var dims: Vector2 = tex.get_size() * factor
 	var rect := Rect2(Vector2(-dims.x / 2, -dims.y + breathing), dims)
+	# Flip only the artwork around the foot origin, never UI, FX or the actor node.
+	var mirror: bool = catalog.source_facing(visual_id) != facing
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2(-1.0 if mirror else 1.0, 1.0))
 	draw_texture_rect(tex, rect, false, Color(1 + flash * 1.5, 1 + flash, 1 + flash, 1))
+	draw_set_transform(Vector2.ZERO)
 	if active and not cinematic:
 		draw_colored_polygon(PackedVector2Array([Vector2(-18, -body_height - 70), Vector2(18, -body_height - 70), Vector2(0, -body_height - 42)]), Color("d7bb80"))

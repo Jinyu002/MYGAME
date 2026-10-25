@@ -29,6 +29,9 @@ func run() -> void:
 		["warden", "bash", ["guard"], "damage", true, "critical"],
 		["mender", "mend", ["duelist"], "heal", false, "support"],
 		["ranger", "shot", ["raider"], "miss", false, "ranged"],
+		["guard", "strike", ["warden"], "damage", false, "melee"],
+		["raider", "rake", ["duelist"], "damage", false, "melee"],
+		["bolter_a", "bolt", ["ranger"], "damage", false, "ranged"],
 		["duelist", "forward", ["duelist"], "move", false, "move"]
 	]
 	var index := 0

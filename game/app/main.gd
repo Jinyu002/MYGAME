@@ -261,7 +261,7 @@ func start_battle() -> void:
 	for id in rules.units:
 		var u: Dictionary = rules.units[id]
 		var v = ActorView.new()
-		v.setup(art, u.visual)
+		v.setup(art, u.visual, int(u.side))
 		v.position = home_position(int(u.side), rules.rank_of(id))
 		world.add_child(v)
 		views[id] = v

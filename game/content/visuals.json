@@ -1,0 +1,12 @@
+{
+  "default_source_facing": "right",
+  "actors": {
+    "warden": {"source_facing": "right"},
+    "duelist": {"source_facing": "right"},
+    "ranger": {"source_facing": "right"},
+    "mender": {"source_facing": "right"},
+    "guard": {"source_facing": "right"},
+    "raider": {"source_facing": "right"},
+    "bolter": {"source_facing": "right"}
+  }
+}

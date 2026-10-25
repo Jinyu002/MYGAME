@@ -4,6 +4,10 @@ const ROOT := "res://assets/reference/"
 var cache: Dictionary = {}
 var variant: bool = false
 var warnings: Array = []
+var visuals: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://content/visuals.json"))
+
+func source_facing(visual: String) -> String:
+	return visuals.actors.get(visual, {}).get("source_facing", visuals.default_source_facing)
 
 func texture(visual: String, pose: String = "idle") -> Texture2D:
 	var file := visual + "_" + pose

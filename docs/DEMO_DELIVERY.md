@@ -2,6 +2,12 @@
 
 交付日期：2026-10-25。状态：本地可运行、核心规则和交互经过自动验证；视觉/平衡仍属测试版。
 
+### 朝向修复（2026-10-25）
+
+修复右侧敌人仍面向右的问题：ActorView按阵营设定显示朝向，与 `content/visuals.json` 声明的原图朝向比较，只镜像图像，不翻转节点、UI或特效。所有现有角色原图声明朝右；左侧我方朝右，右侧敌方朝左。原创美术的默认朝向、朝左素材接入及不可镜像例外见ART_SPEC.md。
+
+本次回归：956项规则/资源、18项场景、68项演出检查均通过；新增三类敌方攻击截图案例。QHD截图确认锈斧、撕裂、墓箭朝向左侧目标；4K全阵容待机检查通过，证据为 `artifacts/profile_strike.png`、`profile_rake.png`、`profile_bolt.png` 和 `facing4k_ready.png`。9662项study文件审计一致。下文44项/六类演出为v0.3初次交付的历史记录。
+
 ## 启动与操作
 
 双击根目录 `Start-Demo.cmd`，或在Godot中打开 `game/project.godot` 并运行。旧根project.godot保持原样，不是本次游戏入口。启动器使用已安装的Godot 4.7.2，不要求用户设置主场景或修改脚本。另机可用 `tools/launch-demo.ps1 -GodotPath <引擎路径>`。
