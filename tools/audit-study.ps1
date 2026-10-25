@@ -27,6 +27,12 @@ $rows = @(foreach ($file in ($files | Sort-Object FullName)) {
 if ($Verify) {
     if (-not (Test-Path -LiteralPath $baseline)) { throw 'No baseline; create it first' }
     $previous = @(Import-Csv -LiteralPath $baseline)
+    # User-added DD2 assemblies (2026-10-26) have a separate immutable baseline.
+    # Preserve the original DD1 evidence; do not silently regenerate either file.
+    $managedBaseline = Join-Path $output 'managed-manifest-2026-10-26.csv'
+    if (Test-Path -LiteralPath $managedBaseline) {
+        $previous += @(Import-Csv -LiteralPath $managedBaseline)
+    }
     $changes = @(Compare-Object $previous $rows -Property Path,Bytes,SHA256)
     if ($changes.Count -gt 0) { $changes | Format-Table; throw 'study differs from baseline; investigate without modifying reference files' }
     Write-Output "PASS: $($rows.Count) reference files match baseline by path, size and SHA256."

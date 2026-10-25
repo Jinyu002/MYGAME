@@ -2,6 +2,8 @@
 
 长期原创 RPG 项目。当前已实现本地可测试战斗 Demo v0.3。交付日期：2026-10-25。
 
+2026-10-26新增：[现有演出诊断](docs/research/CURRENT_PRESENTATION_AUDIT.md)、[DD2程序集研究](docs/research/DD2_MANAGED_RESEARCH.md)、[P0/P1/P2优化方案](docs/research/PRESENTATION_OPTIMIZATION_PLAN.md)。本轮仅研究与隔离原型，正式演出尚未应用这些建议。
+
 ## 立即体验
 
 双击工作区根目录 **[Start-Demo.cmd](Start-Demo.cmd)**。启动器使用本机Godot 4.7.2，只导入/运行 `game/`。也可在Godot项目管理器中导入 `game/project.godot` 后按F6/F5运行主场景。
