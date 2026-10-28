@@ -6,7 +6,7 @@ $artifacts = Join-Path $root 'artifacts'
 New-Item -ItemType Directory -Force $artifacts | Out-Null
 $import = Start-Process -FilePath $GodotPath -ArgumentList "--headless --path `"$game`" --editor --import --quit" -WindowStyle Hidden -Wait -PassThru
 if ($import.ExitCode -ne 0) { throw 'Import failed' }
-foreach ($suite in @('run_tests', 'run_integration', 'run_presentation', 'run_feedback')) {
+foreach ($suite in @('run_tests', 'run_integration', 'run_presentation', 'run_feedback', 'run_hud')) {
     $log = Join-Path $artifacts "$suite.log"
     $proc = Start-Process -FilePath $GodotPath -ArgumentList "--headless --path `"$game`" --script res://tests/$suite.gd --log-file `"$log`"" -WindowStyle Hidden -PassThru
     if (-not $proc.WaitForExit(60000)) {

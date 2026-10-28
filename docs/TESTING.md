@@ -1,5 +1,7 @@
 # 测试与验收
 
+> v0.5新增run_hud.gd的10项交互回归，QHD/4K各完成ready/hover/selected真实截图检查。完整套件现为1408项，见 [UI验收](research/UI_REBUILD_05.md)。本轮不修改战斗规则与演出文件。
+
 > v0.4最终回归：1256规则 + 19集成 + 108演出 + 15反馈 = 1398项通过；4K全屏/QHD窗口各108项图形演出通过，均检查四技能HUD截图。整场图形smoke种子4207：5轮、54条记录、胜利。日志 artifacts/final-integration.log、final-smoke.log、presentation-3840x2160.log、presentation-2560x1440.log。当前未重新做性能长测、运行中反复全屏切换或音频听感验收。
 
 > v0.4：新增run_feedback.gd（15项）及100种子必暴测试；规则1256项、演出108项通过，实际4K截图检查完成。暂停探针已改为断言修复后两条路径均冻结且死者不重现，旧复现结果仅作历史证据。当前快照/限制见 [迭代报告](research/PRESENTATION_ITERATION_04.md)。

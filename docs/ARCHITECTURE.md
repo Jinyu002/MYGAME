@@ -1,5 +1,7 @@
 # 技术架构 v0.1
 
+> v0.5：HUD布局与只读详情抽至app/battle_hud.gd，main保留指令和演出协调；HUD接收shown快照，浏览角色/悬停技能不写规则状态。见 [UI重构记录](research/UI_REBUILD_05.md)。
+
 > v0.4已实施：main登记反馈Tween并显式暂停/变速/释放，ActorView有独立表现时钟开关；不用全局SceneTree暂停。导演按after快照恢复死亡可见性和最终阵位，暴击为基础profile修饰，contact_gaps为技能表现配置。规则增加可选sure_hit并让必暴预览包含1.5倍修正。见 [迭代说明](research/PRESENTATION_ITERATION_04.md)。未引入多段事件架构。
 
 > 2026-10-26演出专项决策：保留确定性规则和已结算记录接口；先修表现时钟与恢复语义，再做局部镜头/反馈优化。多段事件接口仅为待确认方案，未实现。见 [优化方案](research/PRESENTATION_OPTIMIZATION_PLAN.md)。

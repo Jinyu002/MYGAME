@@ -1,5 +1,7 @@
 # TODO 与当前状态
 
+> v0.5 UI布局重构及新HUD交互测试完成。后续UI事项：原创敌方头像替换现有裁切；超过4技能/8行动者时扩展布局。目前不阻塞Demo。见 [本轮记录](research/UI_REBUILD_05.md)。
+
 > v0.4最新状态覆盖下表旧研究记录：PERF-P0-01/02已实现且回归通过；PERF-P1部分完成（HUD/尺寸/近战距离/暴击/时序分组/归位），包围盒镜头与弹字分组仍待实现。新增resolve必暴体验技能已测，正式平衡未完成；裂刃收刀姿态仍需后续命中帧。见 [本轮结果](research/PRESENTATION_ITERATION_04.md)。
 
 2026-10-26新增演出专项：研究与诊断已完成，正式game实现未改，详见 [P0/P1/P2清单](research/PRESENTATION_OPTIMIZATION_PLAN.md)。

@@ -10,6 +10,7 @@ const GOLD := Color("cbb481")
 const INK := Color("131a21")
 const MUTED := Color("9da7ad")
 
+var ui = preload("res://app/battle_hud.gd").new()
 var rules = Rules.new()
 var art = Catalog.new()
 var director: Node
@@ -170,46 +171,7 @@ func button(parent: Node, text: String, rect: Rect2, callback: Callable) -> Butt
 	return b
 
 func build_hud() -> void:
-	panel(hud, Rect2(0, 0, 3840, 190), Color("10161de8"))
-	label(hud, "余烬远征", Rect2(90, 26, 600, 75), 64, GOLD)
-	label(hud, "E M B E R   /   战斗试炼", Rect2(94, 112, 650, 45), 28, MUTED)
-	round_label = label(hud, "", Rect2(840, 30, 550, 70), 42, GOLD)
-	order_label = label(hud, "", Rect2(840, 110, 1780, 55), 30)
-	auto_button = button(hud, "自动：关", Rect2(2680, 48, 260, 86), toggle_auto)
-	speed_button = button(hud, "速度 ×1", Rect2(2965, 48, 235, 86), toggle_speed)
-	button(hud, "设置 / ESC", Rect2(3225, 48, 300, 86), show_pause)
-	button(hud, "全屏", Rect2(3550, 48, 200, 86), toggle_fullscreen)
-	hint = label(hud, "", Rect2(700, 245, 2440, 90), 48, GOLD)
-	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	panel(hud, Rect2(0, 1770, 3840, 390), Color("0d141bf5"))
-	panel(hud, Rect2(72, 1795, 840, 295), Color("182129"))
-	portrait = TextureRect.new()
-	portrait.position = Vector2(100, 1820)
-	portrait.size = Vector2(180, 230)
-	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	hud.add_child(portrait)
-	hero_title = label(hud, "选择你的行动", Rect2(310, 1805, 570, 65), 46, GOLD)
-	hero_detail = label(hud, "", Rect2(310, 1880, 570, 205), 32, MUTED)
-	label(hud, "行动  /  ACTIONS", Rect2(970, 1790, 1490, 45), 30, GOLD)
-	skill_box = HBoxContainer.new()
-	skill_box.position = Vector2(970, 1840)
-	skill_box.size = Vector2(1520, 140)
-	skill_box.add_theme_constant_override("separation", 22)
-	hud.add_child(skill_box)
-	button(hud, "前移  [Q]", Rect2(970, 2000, 300, 80), func(): select_skill("forward"))
-	button(hud, "后撤  [E]", Rect2(1290, 2000, 300, 80), func(): select_skill("back"))
-	button(hud, "坚守  [G]", Rect2(1610, 2000, 300, 80), func(): select_skill("defend"))
-	button(hud, "取消选择", Rect2(1930, 2000, 300, 80), cancel_selection)
-	panel(hud, Rect2(2560, 1795, 1200, 295), Color("182129"))
-	preview_title = label(hud, "选择技能 → 选择目标", Rect2(2600, 1805, 1120, 55), 40, GOLD)
-	preview_text = label(hud, "", Rect2(2600, 1870, 1100, 120), 32)
-	preview_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	confirm = button(hud, "确认行动  [SPACE]", Rect2(2600, 2000, 1120, 80), submit_selected)
-	log_label = label(hud, "", Rect2(95, 2100, 3640, 55), 30, MUTED)
-	for child in hud.get_children():
-		if child != hint:
-			child.set_meta("focus_fade", 0.85 if child.position.y < 190 else 1.0)
+	ui.build(self)
 
 func home_position(side: int, rank_value: int) -> Vector2:
 	return Vector2(1550 - (rank_value - 1) * 370 if side == 0 else 2290 + (rank_value - 1) * 370, 1580)
@@ -264,6 +226,9 @@ func start_battle() -> void:
 	impact_captured = false
 	selected_skill = ""
 	selected_target = ""
+	ui.hover_skill = ""
+	ui.inspected = ""
+	hovered = ""
 	running = true
 	locked = true
 	for id in rules.units:
@@ -274,7 +239,8 @@ func start_battle() -> void:
 		v.position = home_position(int(u.side), rules.rank_of(id))
 		world.add_child(v)
 		views[id] = v
-		var card := panel(hud, Rect2(v.position.x - 165, 1620, 330, 130), Color("101820"))
+		var card := panel(hud, Rect2(v.position.x - 165, 1620, 330, 130), Color.TRANSPARENT)
+		card.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 		card.set_meta("focus_fade", 1.0)
 		cards[id] = card
 		var click := button(hud, "", Rect2(v.position.x - 170, 720, 340, 890), func(): choose_target(id))
@@ -337,6 +303,8 @@ func perform(cmd: Dictionary) -> void:
 	present(record)
 
 func _impact(record: Dictionary) -> void:
+	ui.shown = record.after
+	ui.details(self)
 	refresh_cards(record.after)
 	var audible := false
 	var popup_counts: Dictionary = {}
@@ -420,9 +388,11 @@ func _presentation_done() -> void:
 
 func refresh(state: Dictionary = {}) -> void:
 	if rules.units.is_empty(): return
+	ui.hover_skill = ""
 	var shown: Dictionary = state if not state.is_empty() else rules.snapshot()
 	var displayed_actor: String = shown.current
-	round_label.text = "第 %02d 轮   /   墓穴边界" % rules.round_number
+	round_label.text = "回合  %02d" % rules.round_number
+	ui.refresh_queue(self, shown)
 	var names: Array = []
 	if not rules.current.is_empty(): names.append("▶ " + rules.units[rules.current].name)
 	for id in rules.queue: names.append(rules.units[id].name)
@@ -456,15 +426,24 @@ func refresh(state: Dictionary = {}) -> void:
 			var sk: Dictionary = rules.definitions.skills[sk_id]
 			var remaining: String = "  %d/%d" % [int(sk.limit) - int(u.used.get(sk_id, 0)), sk.limit] if sk.has("limit") else ""
 			var b := Button.new()
-			b.text = "%d  %s%s" % [i+1, sk.name, remaining]
-			if u.skills.size() > 3: b.text = "%d  %s\n%s" % [i+1, sk.name, remaining.strip_edges()]
-			b.custom_minimum_size = Vector2(350 if u.skills.size() > 3 else 480, 140)
-			b.add_theme_font_size_override("font_size", 32 if u.skills.size() > 3 else 38)
+			b.custom_minimum_size = Vector2(155, 140)
+			var icon_style := box(Color("0d1412"), Color("606154"), 2)
+			icon_style.content_margin_left = 8
+			icon_style.content_margin_right = 8
+			b.add_theme_stylebox_override("normal", icon_style)
 			if u.side == 0: b.icon = art.skill_icon(u.visual, int(sk.get("icon_index", mini(i, 2))))
+			else: b.icon = art.portrait(u.visual)
 			b.expand_icon = true
-			b.add_theme_constant_override("icon_max_width", 78 if u.skills.size() > 3 else 118)
+			b.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			b.add_theme_constant_override("icon_max_width", 120)
+			label(b, str(i + 1), Rect2(112, 2, 36, 40), 28, GOLD)
+			if not remaining.is_empty(): label(b, remaining.strip_edges(), Rect2(8, 97, 135, 38), 26, GOLD)
+			b.mouse_entered.connect(func(): ui.hover_skill = sk_id; refresh_preview())
+			b.mouse_exited.connect(func(): ui.hover_skill = ""; refresh_preview())
+			b.focus_entered.connect(func(): ui.hover_skill = sk_id; refresh_preview())
+			b.focus_exited.connect(func(): ui.hover_skill = ""; refresh_preview())
 			b.disabled = locked or u.side != 0 or rules.targets(u.id, sk_id).is_empty()
-			b.tooltip_text = sk.desc + "\n发动位 " + str(sk.launch) + " → 目标位 " + str(sk.target)
+			b.tooltip_text = sk.name + "\n" + sk.desc + "\n发动位 " + str(sk.launch) + " → 目标位 " + str(sk.target)
 			if rules.targets(u.id, sk_id).is_empty(): b.tooltip_text += "\n不可用：阵位不符、目标不存在或次数耗尽"
 			if sk_id == selected_skill: b.add_theme_stylebox_override("normal", box(Color("413b2d"), GOLD, 3))
 			b.pressed.connect(func(): select_skill(sk_id))
@@ -517,27 +496,17 @@ func select_skill(id: String) -> void:
 	refresh()
 
 func choose_target(id: String) -> void:
-	if locked or paused or selected_skill.is_empty() or not running: return
+	if locked or paused or not running: return
+	ui.inspected = id
+	refresh_preview()
+	if selected_skill.is_empty(): return
 	if id in rules.targets(rules.current, selected_skill):
 		selected_target = id
 		refresh()
 
 func refresh_preview() -> void:
 	confirm.disabled = locked or selected_skill.is_empty() or selected_target.is_empty() or paused
-	if selected_skill.is_empty():
-		preview_title.text = "选择技能 → 选择目标"
-		preview_text.text = "阵位决定攻击范围。可悬停角色查看状态。\n选择后仍需确认，避免误操作。"
-		return
-	var sk: Dictionary = rules.definitions.skills[selected_skill]
-	preview_title.text = sk.name
-	preview_text.text = sk.desc
-	var tid: String = selected_target if not selected_target.is_empty() else hovered
-	if not tid.is_empty() and tid in rules.targets(rules.current, selected_skill):
-		var p: Dictionary = rules.preview(selected_skill, tid)
-		preview_title.text += "  →  " + ("全部合法目标" if sk.get("all", false) else rules.units[tid].name)
-		if sk.kind in ["damage", "heal"]:
-			preview_text.text += "\n命中 %d%%    %s %d—%d" % [p.hit / 100, "治疗" if sk.kind == "heal" else "伤害", p.min, p.max]
-		else: preview_text.text += "\n立即生效 · 消耗本次行动"
+	ui.details(self)
 
 func submit_selected() -> void:
 	if confirm.disabled or locked or paused: return
